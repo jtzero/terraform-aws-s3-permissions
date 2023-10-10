@@ -8,11 +8,10 @@ Data only module that breaks down s3 iam permissions into 6 groups as locals in 
 in-bucket |        |      |        |
 ----------+--------+------+--------+
 (on)bucket|        |      |        |
-----------+--------+---------------+
+----------+--------+------+--------+
 
 ```
 
-```
 For outputs there are just 4 major combinations (& a read-only)
 
 ```
