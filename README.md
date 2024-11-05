@@ -15,17 +15,16 @@ create it you can change it's attr's as well.
 
 ```
 
-For outputs there are just 4 major combinations (& a read-only technically sub category of non-destructuve)
+For outputs there are just 4 major combinations
 
 ```
-----------+--------------------+-------------------+-----------+
-          | destructive        | non-destructive   | read-only |
-----------+--------------------+-------------------+-----------+
-in-bucket | can read           | can read          | can read  |
-          | can create/update  | can create/update | that's it |
-          | can delete         | can't update      |           |
-          | can update         | can't delete      |           |
-----------+--------------------+-------------------+-----------+
-(on)bucket| see above          | see above         | see above |
-----------+--------------------+-------------------+-----------+
+------------+--------------------+-------------------+
+output name | destructive_       | non_destructive_  |
+------------+--------------------+-------------------+
+in-bucket   | can read           | can read          |  read_ 
+            | can create/update  | can create/update |  write_
+            | can delete         | can't delete      |  
+------------+--------------------+-------------------+
+(on)bucket  | see above          | see above         |
+------------+--------------------+-------------------+
 ```
