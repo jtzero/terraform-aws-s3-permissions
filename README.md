@@ -10,7 +10,8 @@ in-bucket |                |      |        |
 (on)bucket|                |      |        |
 ----------+----------------+------+--------+
 
-Currently there is no distinction beteween create and update, if you can create it you can change it's attr's as well.
+Currently there is no distinction beteween create and update, if you can 
+create it you can change it's attr's as well.
 
 ```
 
