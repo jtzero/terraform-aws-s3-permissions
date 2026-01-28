@@ -43,6 +43,8 @@ locals {
     "s3:PutReplicationConfiguration",
     "s3:ReplicateObject",
     "s3:RestoreObject",
+    "s3:PutBucketEncryption",
+    "s3:PutPublicAccessBlock"
   ]
   read_bucket_actions = [
     "s3:GetAccelerateConfiguration",
