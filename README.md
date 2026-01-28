@@ -28,3 +28,30 @@ in-bucket   | can read           | can read          |  read_
 (on)bucket  | see above          | see above         |
 ------------+--------------------+-------------------+
 ```
+
+## On vs In
+In is for effecting files "in" the bucket, typically the `*` in `arn:aws:s3:::mybucket/*`
+On is for properties related to the bucket itself, typically the resource is just `arn:aws:s3:::mybucket`
+example
+in
+```hcl
+data "aws_iam_policy_document" "terraform_ci_data_ingestion" {
+  version = "2012-10-17"
+  statement {
+    actions   = ["s3:GetObject"]
+    effect    = "Allow"
+    resources = ["arn:aws:s3:::mybucket/*"]
+  }
+}
+```
+on:
+```hcl
+data "aws_iam_policy_document" "terraform_ci_data_ingestion" {
+  version = "2012-10-17"
+  statement {
+    actions   = ["s3:PutBucketVersioning"]
+    effect    = "Allow"
+    resources = ["arn:aws:s3:::mybucket"]
+  }
+}
+```
