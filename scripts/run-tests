@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+echo "🧪 Running Terraform tests for terraform-aws-s3-permissions module..."
+echo
+
+SCRIPTS_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+TEST_DIR="$(dirname "${SCRIPTS_DIR}")/tests"
+cd "${TEST_DIR}"
+
+echo "📦 Initializing Terraform..."
+terraform init -upgrade
+
+echo "✅ Validating Terraform configuration..."
+terraform validate
+
+echo "🔍 Running Terraform plan to see test results..."
+terraform plan -detailed-exitcode
+
+case $? in
+0)
+  echo "✅ All tests passed! No changes detected."
+  ;;
+1)
+  echo "❌ Terraform plan failed. Check the configuration."
+  exit 1
+  ;;
+2)
+  echo "⚠️  Plan shows changes. This is expected for the test IAM policies."
+  echo "📊 Check the output validation results above for detailed test results."
+  ;;
+esac
+
+echo
+echo "🎯 Test Summary:"
+echo "   - Validation: Check 'test_validation_summary' output for overall results"
+echo "   - Details: Check 'content_validation_results' output for specific validations"
+echo "   - Example: The plan shows IAM policies will be created to demonstrate usage"
+echo
+echo "💡 To see the actual values being tested, run: terraform output"
+echo "💡 To apply the test resources (IAM policies), run: terraform apply"

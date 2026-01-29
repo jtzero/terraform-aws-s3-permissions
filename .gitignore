@@ -1,0 +1,44 @@
+# .gitignore for Terraform Module
+
+# Terraform files
+.terraform/
+*.tfplan
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Test state files (keep for debugging but ignore in version control)
+tests/.terraform/
+tests/*.tfplan
+tests/*.tfstate
+tests/*.tfstate.*
+tests/crash.log
+tests/override.tf
+tests/override.tf.json
+tests/*_override.tf
+tests/*_override.tf.json
+tests/.terraform.lock.hcl
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log

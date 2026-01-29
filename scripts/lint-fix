@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPTS_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+exec "${SCRIPTS_DIR}/lint" --fix
