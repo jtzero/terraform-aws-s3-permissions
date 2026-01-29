@@ -30,6 +30,7 @@ locals {
     "s3:PutAccelerateConfiguration",
     "s3:PutBucketAcl",
     "s3:PutBucketCORS",
+    "s3:PutBucketEncryption",
     "s3:PutBucketLogging",
     "s3:PutBucketNotification",
     "s3:PutBucketObjectLockConfiguration",
@@ -40,14 +41,18 @@ locals {
     "s3:PutBucketWebsite",
     "s3:PutEncryptionConfiguration",
     "s3:PutLifecycleConfiguration",
+    "s3:PutPublicAccessBlock",
+    "s3:PutAccountPublicAccessBlock",
     "s3:PutReplicationConfiguration",
     "s3:ReplicateObject",
-    "s3:RestoreObject",
+    "s3:RestoreObject"
   ]
   read_bucket_actions = [
     "s3:GetAccelerateConfiguration",
+    "s3:GetAccountPublicAccessBlock",
     "s3:GetBucketAcl",
     "s3:GetBucketCORS",
+    "s3:GetBucketEncryption",
     "s3:GetBucketLocation",
     "s3:GetBucketLogging",
     "s3:GetBucketNotification",
@@ -59,6 +64,7 @@ locals {
     "s3:GetBucketWebsite",
     "s3:GetEncryptionConfiguration",
     "s3:GetLifecycleConfiguration",
+    "s3:GetPublicAccessBlock",
     "s3:GetReplicationConfiguration",
     "s3:ListAllMyBuckets",
     "s3:ListBucket",
@@ -68,8 +74,10 @@ locals {
   ]
   delete_bucket_actions = [
     "s3:DeleteBucket",
+    "s3:DeleteBucketEncryption",
     "s3:DeleteBucketPolicy",
     "s3:DeleteBucketWebsite",
+    "s3:DeletePublicAccessBlock",
     "s3:ReplicateDelete"
   ]
 }
