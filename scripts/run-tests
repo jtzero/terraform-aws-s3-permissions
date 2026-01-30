@@ -12,6 +12,8 @@ PROJECT_ROOT="$(dirname "${SCRIPTS_DIR}")"
 
 cd "${PROJECT_ROOT}/tests"
 
+terraform init
+
 echo "✅ Running Terraform tests..."
 # The `terraform test` command will automatically discover and run .tftest.hcl files.
 # It will also handle initialization for the test environments.
