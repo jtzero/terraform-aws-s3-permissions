@@ -2,41 +2,28 @@
 
 set -Eeuo pipefail
 
-echo "🧪 Running Terraform tests for terraform-aws-s3-permissions module..."
+echo "🧪 Running Terraform tests for terraform-aws-s3-permissions module using terraform test..."
 echo
 
+# Navigate to the root of the project to ensure terraform test finds all test files.
+# The script itself is in `scripts/`, so go up one level.
 SCRIPTS_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
-TEST_DIR="$(dirname "${SCRIPTS_DIR}")/tests"
-cd "${TEST_DIR}"
+PROJECT_ROOT="$(dirname "${SCRIPTS_DIR}")"
 
-echo "📦 Initializing Terraform..."
-terraform init -upgrade
+cd "${PROJECT_ROOT}/tests"
 
-echo "✅ Validating Terraform configuration..."
-terraform validate
+echo "✅ Running Terraform tests..."
+# The `terraform test` command will automatically discover and run .tftest.hcl files.
+# It will also handle initialization for the test environments.
+terraform test
 
-echo "🔍 Running Terraform plan to see test results..."
-terraform plan -detailed-exitcode
-
-case $? in
-0)
-  echo "✅ All tests passed! No changes detected."
-  ;;
-1)
-  echo "❌ Terraform plan failed. Check the configuration."
+# Check the exit code of terraform test
+if [ $? -eq 0 ]; then
+  echo "✅ All Terraform tests passed successfully!"
+else
+  echo "❌ Some Terraform tests failed. Please check the output above."
   exit 1
-  ;;
-2)
-  echo "⚠️  Plan shows changes. This is expected for the test IAM policies."
-  echo "📊 Check the output validation results above for detailed test results."
-  ;;
-esac
+fi
 
 echo
-echo "🎯 Test Summary:"
-echo "   - Validation: Check 'test_validation_summary' output for overall results"
-echo "   - Details: Check 'content_validation_results' output for specific validations"
-echo "   - Example: The plan shows IAM policies will be created to demonstrate usage"
-echo
-echo "💡 To see the actual values being tested, run: terraform output"
-echo "💡 To apply the test resources (IAM policies), run: terraform apply"
+echo "🎯 Test Summary: All module outputs are validated against expected values using mock providers."

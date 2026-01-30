@@ -13,15 +13,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+      - name: Setup asdf
+        uses: asdf-vm/actions/setup@v3
 
-      - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v4
-        with:
-          tflint_version: latest
+      - name: Add keep-sorted plugin
+        run: asdf plugin add keep-sorted https://github.com/jtzero/asdf-keep-sorted.git
 
-      - name: TFLint
+      - name: Add tflint plugin
+        run: asdf plugin add tflint
+
+      - name: Add terraform plugin
+        run: asdf plugin add terraform
+
+      - name: Install tools
+        run: asdf install
+
+      - name: Lint
         run: ./scripts/lint
 
       - name: Checkov
