@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if ! command -v docker &>/dev/null; then
+  echo "Docker is not installed. Please install Docker first: https://docs.docker.com/get-docker/"
+  exit 1
+fi
+
+if ! command -v asdf &>/dev/null; then
+  echo "asdf is not installed. Please install asdf first: https://asdf-vm.com/"
+  exit 1
+fi
+
+SCRIPTS_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+PROJECT_DIR="$(dirname "$SCRIPTS_DIR")"
+TEST_DIR="${PROJECT_DIR}/tests"
+
+cd "${TEST_DIR}/localstack" || exit 1
+
+asdf plugin add python
+
+asdf install
+
+printf '%s\n' "Installing LocalStack CLI..."
+pip install localstack==4.7.0
+
+printf '%s\n' "LocalStack CLI installed successfully."

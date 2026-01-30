@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPTS_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+PROJECT_DIR="$(dirname "$SCRIPTS_DIR")"
+TEST_DIR="${PROJECT_DIR}/tests"
+
+cd "${TEST_DIR}/localstack" || exit 1
+
+localstack status services || localstack start -d
+
+printf "%s\n" "${PWD}"
+
+terraform init
+terraform apply -auto-approve
