@@ -1,5 +1,6 @@
 locals {
   create_in_bucket_actions = [
+    # keep-sorted start
     "s3:PutObject",
     "s3:PutObjectAcl",
     "s3:PutObjectLegalHold",
@@ -8,8 +9,10 @@ locals {
     "s3:PutObjectVersionAcl",
     "s3:ReplicateObject",
     "s3:RestoreObject"
+    # keep-sorted end
   ]
   read_in_bucket_actions = [
+    # keep-sorted start
     "s3:GetObject",
     "s3:GetObjectAcl",
     "s3:GetObjectLegalHold",
@@ -19,15 +22,20 @@ locals {
     "s3:GetObjectVersion",
     "s3:GetObjectVersionAcl",
     "s3:GetObjectVersionTorrent"
+    # keep-sorted end
   ]
   delete_in_bucket_actions = [
+    # keep-sorted start
     "s3:DeleteObject",
     "s3:DeleteObjectVersion",
     "s3:ReplicateDelete",
+    # keep-sorted end
   ]
   create_bucket_actions = [
+    # keep-sorted start
     "s3:CreateBucket",
     "s3:PutAccelerateConfiguration",
+    "s3:PutAccountPublicAccessBlock",
     "s3:PutBucketAcl",
     "s3:PutBucketCORS",
     "s3:PutBucketEncryption",
@@ -42,12 +50,13 @@ locals {
     "s3:PutEncryptionConfiguration",
     "s3:PutLifecycleConfiguration",
     "s3:PutPublicAccessBlock",
-    "s3:PutAccountPublicAccessBlock",
     "s3:PutReplicationConfiguration",
     "s3:ReplicateObject",
     "s3:RestoreObject"
+    # keep-sorted end
   ]
   read_bucket_actions = [
+    # keep-sorted start
     "s3:GetAccelerateConfiguration",
     "s3:GetAccountPublicAccessBlock",
     "s3:GetBucketAcl",
@@ -71,13 +80,16 @@ locals {
     "s3:ListBucketMultipartUploads",
     "s3:ListBucketVersions",
     "s3:ListMultipartUploadParts"
+    # keep-sorted end
   ]
   delete_bucket_actions = [
+    # keep-sorted start
     "s3:DeleteBucket",
     "s3:DeleteBucketEncryption",
     "s3:DeleteBucketPolicy",
     "s3:DeleteBucketWebsite",
     "s3:DeletePublicAccessBlock",
     "s3:ReplicateDelete"
+    # keep-sorted end
   ]
 }

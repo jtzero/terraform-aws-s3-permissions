@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+echo "🧪 Running Terraform tests for terraform-aws-s3-permissions module using terraform test..."
+echo
+
+# Navigate to the root of the project to ensure terraform test finds all test files.
+# The script itself is in `scripts/`, so go up one level.
+SCRIPTS_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+PROJECT_ROOT="$(dirname "${SCRIPTS_DIR}")"
+
+cd "${PROJECT_ROOT}/tests"
+
+echo "✅ Running Terraform tests..."
+# The `terraform test` command will automatically discover and run .tftest.hcl files.
+# It will also handle initialization for the test environments.
+terraform test
+
+# Check the exit code of terraform test
+if [ $? -eq 0 ]; then
+  echo "✅ All Terraform tests passed successfully!"
+else
+  echo "❌ Some Terraform tests failed. Please check the output above."
+  exit 1
+fi
+
+echo
+echo "🎯 Test Summary: All module outputs are validated against expected values using mock providers."

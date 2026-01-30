@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup asdf
+        uses: asdf-vm/actions/setup@v3
+
+      - name: Add keep-sorted plugin
+        run: asdf plugin add keep-sorted https://github.com/jtzero/asdf-keep-sorted.git
+
+      - name: Add tflint plugin
+        run: asdf plugin add tflint
+
+      - name: Add terraform plugin
+        run: asdf plugin add terraform
+
+      - name: Install tools
+        run: asdf install
+
+      - name: Lint
+        run: ./scripts/lint
+
+      - name: Checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: .
+          framework: terraform
+
+      - name: Run tests
+        run: ./scripts/run-tests

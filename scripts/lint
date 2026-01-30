@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+set -x
+ARG="${1:-}"
+
+if [ -n "${ARG}" ] && [ "${ARG}" = "--fix" ]; then
+  KP_MODE="fix"
+  TFLINT_MODE="--fix"
+else
+  KP_MODE="lint"
+  TFLINT_MODE=""
+fi
+
+tflint --recursive ${TFLINT_MODE}
+
+keep-sorted --color always --mode ${KP_MODE} *.tf
