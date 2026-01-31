@@ -9,6 +9,9 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:dind
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -39,3 +42,9 @@ jobs:
 
       - name: Run tests
         run: ./scripts/run-tests
+
+      - name: install localstack
+        run: ./scripts/install-localstack
+
+      - name: run localstack tests
+        run: ./scripts/localstack-tests

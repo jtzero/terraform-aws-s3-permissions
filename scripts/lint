@@ -1,7 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-set -x
 ARG="${1:-}"
 
 if [ -n "${ARG}" ] && [ "${ARG}" = "--fix" ]; then
