@@ -7,6 +7,48 @@ on:
   pull_request:
 
 jobs:
+  ci-gate:
+    runs-on: ubuntu-latest
+    needs: [stack-test, lint-and-test]
+    if: always()
+    steps:
+      - name: Verify all required jobs succeeded
+        run: |
+          if [[ "${{ needs.lint-and-test.result }}" != "success" ]]; then
+            echo "lint-and-test failed"; exit 1
+          fi
+          if [[ "${{ needs.stack-test.result }}" != "success" ]]; then
+            echo "stack-test failed"; exit 1
+          fi
+          echo "All required jobs passed"
+
+  stack-test:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:dind
+    steps:
+      - name: apt items
+        run: |
+          sudo add-apt-repository main
+          sudo add-apt-repository universe
+          sudo apt-get update && sudo apt-get install build-essential libssl-dev zlib1g-dev \
+               libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+               libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
+               libffi-dev liblzma-dev
+      - name: Install asdf & tools
+        uses: asdf-vm/actions/setup@v4
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: install stack
+        run: ./scripts/install-stack
+
+      - name: run stack tests
+        run: ./scripts/stack-tests
+
+
   lint-and-test:
     runs-on: ubuntu-latest
     services:
@@ -42,9 +84,3 @@ jobs:
 
       - name: Run tests
         run: ./scripts/run-tests
-
-      - name: install localstack
-        run: ./scripts/install-localstack
-
-      - name: run localstack tests
-        run: ./scripts/localstack-tests
