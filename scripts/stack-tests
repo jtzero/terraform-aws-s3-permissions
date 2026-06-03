@@ -6,9 +6,9 @@ SCRIPTS_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 PROJECT_DIR="$(dirname "$SCRIPTS_DIR")"
 TEST_DIR="${PROJECT_DIR}/tests"
 
-cd "${TEST_DIR}/localstack" || exit 1
+cd "${TEST_DIR}/stack" || exit 1
 
-localstack status services || localstack start -d
+curl --fail http://localhost:4566/_ministack/health >/dev/null 2>&1 || ministack -d
 
 printf "%s\n" "${PWD}"
 
