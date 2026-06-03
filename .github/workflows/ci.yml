@@ -16,11 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup asdf
-        uses: asdf-vm/actions/setup@v3
+      - name: Install asdf & tools
+        uses: asdf-vm/actions/setup@v4
 
       - name: Add keep-sorted plugin
-        run: asdf plugin add keep-sorted https://github.com/jtzero/asdf-keep-sorted.git
+        run: asdf plugin add keep-sorted https://github.com/jtzero/asdf-keep-sorted
 
       - name: Add tflint plugin
         run: asdf plugin add tflint
