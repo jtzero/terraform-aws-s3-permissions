@@ -21,7 +21,8 @@ locals {
     "s3:GetObjectTorrent",
     "s3:GetObjectVersion",
     "s3:GetObjectVersionAcl",
-    "s3:GetObjectVersionTorrent"
+    "s3:GetObjectVersionTorrent",
+    "s3:HeadObject"
     # keep-sorted end
   ]
   delete_in_bucket_actions = [
