@@ -8,7 +8,14 @@ TEST_DIR="${PROJECT_DIR}/tests"
 
 cd "${TEST_DIR}/stack" || exit 1
 
-curl --fail http://localhost:4566/_ministack/health >/dev/null 2>&1 || ministack -d
+# Start the moto stack in the background if it isn't already accepting connections.
+if ! curl --fail --silent http://localhost:5000/moto-api/ >/dev/null 2>&1; then
+  moto_server -p 5000 >/tmp/moto_server.log 2>&1 &
+  for _ in $(seq 1 30); do
+    curl --fail --silent http://localhost:5000/moto-api/ >/dev/null 2>&1 && break
+    sleep 1
+  done
+fi
 
 printf "%s\n" "${PWD}"
 
