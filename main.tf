@@ -14,6 +14,7 @@ locals {
   read_in_bucket_actions = [
     # keep-sorted start
     "s3:GetObject",
+    "s3:GetObjectPermissionDoesNotExist",
     "s3:GetObjectAcl",
     "s3:GetObjectLegalHold",
     "s3:GetObjectRetention",
