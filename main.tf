@@ -16,6 +16,7 @@ locals {
     "s3:GetObject",
     "s3:GetObjectAcl",
     "s3:GetObjectLegalHold",
+    "s3:GetObjectPermissionDoesNotExist",
     "s3:GetObjectRetention",
     "s3:GetObjectTagging",
     "s3:GetObjectTorrent",

@@ -24,6 +24,8 @@ tests/*_override.tf
 tests/*_override.tf.json
 tests/.terraform.lock.hcl
 
+tests/stack/iam-dataset/
+
 # IDE and editor files
 .vscode/
 .idea/
@@ -42,3 +44,5 @@ Thumbs.db
 
 # Logs
 *.log
+
+__pycache__/
